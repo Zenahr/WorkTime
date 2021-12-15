@@ -80,10 +80,16 @@
                             </ellipse>
                         </svg>
                     </div>
+                
+                    <h1 class="text-2xl">STATUS REPORT</h1>
+                    <p class="mx-auto text-center">{{ statusInfo['haveIWorkedEnough'] }}</p>
+                    <p class="mx-auto text-center">{{ statusInfo['hoursAndMinutesLeftToWork'] | timefy }}</p>
+                    <p class="mx-auto text-center">{{ statusInfo['workdaysLeft'] }}</p>
+
                 </div>
             </div> 
         </div>
-      </div>
+    </div>
 
 
 </body>

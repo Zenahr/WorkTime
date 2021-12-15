@@ -66,6 +66,19 @@ def ZEN_API_haveIWorkedEnoughThisWeek():
     totalWeekWorkTimeInSeconds = ZEN_API_getTotalWeekWorkTimeInSeconds(relevantLogs)
     return ZEN_API_haveIWorkedEnoughPerWeek(totalWeekWorkTimeInSeconds)
 
+def getStatusInfo():
+    data = getData()
+    relevantLogs = ZEN_API_getRelevantWorkLogs(data)
+    totalWeekWorkTimeInSeconds = ZEN_API_getTotalWeekWorkTimeInSeconds(relevantLogs)
+    haveIWorkedEnoughResult = ZEN_API_haveIWorkedEnoughPerWeek(totalWeekWorkTimeInSeconds)
+    hoursAndMinutesLeftToWork = ZEN_API_getHoursandMinutesLeftToWork(totalWeekWorkTimeInSeconds)
+    workdaysLeftResult = ZEN_API_getWorkdaysLeftToDistribute()
+    return {
+        "haveIWorkedEnough": haveIWorkedEnoughResult,
+        "hoursAndMinutesLeftToWork": hoursAndMinutesLeftToWork,
+        "workdaysLeft": workdaysLeftResult
+    }
+
 
 def ZEN_API_printMessage(haveIWorkedEnoughResult, hoursAndMinutesLeftToWorkResult=(0, 0), workdaysLeftResult=0):
     if haveIWorkedEnoughResult:
@@ -91,9 +104,9 @@ def ZEN_API_getWorkTimeStatus(emulate=''):
     relevantLogs               = ZEN_API_getRelevantWorkLogs(data)
     totalWeekWorkTimeInSeconds = ZEN_API_getTotalWeekWorkTimeInSeconds(relevantLogs)
     haveIWorkedEnoughResult    = ZEN_API_haveIWorkedEnoughPerWeek(totalWeekWorkTimeInSeconds)
-    hoursAndLeftToWorkResult      = ZEN_API_getHoursandMinutesLeftToWork(totalWeekWorkTimeInSeconds)
+    hoursAndMinutesLeftToWork      = ZEN_API_getHoursandMinutesLeftToWork(totalWeekWorkTimeInSeconds)
     workdaysLeftResult         = ZEN_API_getWorkdaysLeftToDistribute()
-    printResult                = ZEN_API_printMessage(haveIWorkedEnoughResult, hoursAndLeftToWorkResult, workdaysLeftResult)
+    printResult                = ZEN_API_printMessage(haveIWorkedEnoughResult, hoursAndMinutesLeftToWork, workdaysLeftResult)
 
     if emulate == 'no':
         return ZEN_API_printMessage(False)
