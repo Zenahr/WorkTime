@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, jsonify, session
 from flaskwebgui import FlaskUI
-from lib import *
+import lib
 
 app = Flask(__name__)
 ui = FlaskUI(app)
@@ -16,15 +16,15 @@ def timefy(hoursAndMinutesTuple):
 def hello():
     emulate = '' # 'yes' | 'no' | ''
     if emulate == 'yes' or emulate == 'no':
-        result = ZEN_API_getWorkTimeStatus(emulate=emulate)
+        result = lib.getWorkTimeStatus(emulate=emulate)
         return render_template('index.html', result=result)
     
-    statusInfo = ZEN_API_getStatusInfo()
+    statusInfo = lib.getStatusInfo()
 
-    if ZEN_API_haveIWorkedEnoughThisWeek():
+    if lib.haveIWorkedEnoughThisWeek():
         return render_template('yay.html', statusInfo=statusInfo)
 
-    result = ZEN_API_getWorkTimeStatus(emulate=emulate)
+    result = lib.getWorkTimeStatus(emulate=emulate)
     return render_template('index.html', result=result, statusInfo=statusInfo)
 
 if __name__ == '__main__':
