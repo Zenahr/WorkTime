@@ -61,15 +61,15 @@ def ZEN_API_getHoursandMinutesLeftToWork(seconds):
     minutesLeft = ZEN_API_convertSecondsToHours(seconds)[1]
     return hoursLeft, minutesLeft
 
-def ZEN_API_printMessage(haveIWorkedEnoughResult, hoursLeftToWorkResult=(0, 0), workdaysLeftResult=0):
+def ZEN_API_printMessage(haveIWorkedEnoughResult, hoursAndMinutesLeftToWorkResult=(0, 0), workdaysLeftResult=0):
     if haveIWorkedEnoughResult:
         return 'I have worked enough this week!'
     else:
-        return f"""
-        I have not worked enough yet.
-        of the total hours of {weeklyHours}:
-        I have {hoursLeftToWorkResult[0]} hours and {hoursLeftToWorkResult[1]} minutes left to work.
-        I have {workdaysLeftResult} workdays left to distribute the remaining time.
+        return f""" <br>
+        I have not worked enough yet. <br>
+        of the total hours of {weeklyHours}: <br>
+        I have {hoursAndMinutesLeftToWorkResult[0]} hours and {hoursAndMinutesLeftToWorkResult[1]} minutes left to work. <br>
+        I have {workdaysLeftResult} workdays left to distribute the time remaining.
         """
 
 
@@ -87,9 +87,9 @@ def ZEN_API_getWorkTimeStatus(emulate=''):
     relevantLogs               = ZEN_API_getRelevantWorkLogs(data)
     totalWeekWorkTimeInSeconds = ZEN_API_getTotalWeekWorkTimeInSeconds(relevantLogs)
     haveIWorkedEnoughResult    = ZEN_API_haveIWorkedEnoughPerWeek(totalWeekWorkTimeInSeconds)
-    hoursLeftToWorkResult      = ZEN_API_getHoursandMinutesLeftToWork(totalWeekWorkTimeInSeconds)
+    hoursAndLeftToWorkResult      = ZEN_API_getHoursandMinutesLeftToWork(totalWeekWorkTimeInSeconds)
     workdaysLeftResult         = ZEN_API_getWorkdaysLeftToDistribute()
-    printResult                = ZEN_API_printMessage(haveIWorkedEnoughResult, hoursLeftToWorkResult, workdaysLeftResult)
+    printResult                = ZEN_API_printMessage(haveIWorkedEnoughResult, hoursAndLeftToWorkResult, workdaysLeftResult)
 
 
     # debug logic. no means that no, I didn't work enough and 'yes' vice versa.
