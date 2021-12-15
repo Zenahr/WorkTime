@@ -7,7 +7,7 @@ import datetime
 dotenv.load_dotenv()
 
 TOKEN = os.getenv("TEMPO_API_TOKEN")
-weeklyHours = os.getenv("REQUIRED_WEEKLY_HOURS") # Change this depending on your minimum weekly work time
+weeklyHours = int(os.getenv("REQUIRED_WEEKLY_HOURS")) # Change this depending on your minimum weekly work time
 
 def getData():
     r = request('get', "https://api.tempo.io/core/3/worklogs", headers={"Authorization": "Bearer " + TOKEN})
@@ -66,7 +66,7 @@ def ZEN_API_haveIWorkedEnoughThisWeek():
     totalWeekWorkTimeInSeconds = ZEN_API_getTotalWeekWorkTimeInSeconds(relevantLogs)
     return ZEN_API_haveIWorkedEnoughPerWeek(totalWeekWorkTimeInSeconds)
 
-def getStatusInfo():
+def ZEN_API_getStatusInfo():
     data = getData()
     relevantLogs = ZEN_API_getRelevantWorkLogs(data)
     totalWeekWorkTimeInSeconds = ZEN_API_getTotalWeekWorkTimeInSeconds(relevantLogs)

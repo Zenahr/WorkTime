@@ -21,8 +21,8 @@
         <div class="m-auto">
             <div data-theme="cupcake" class="artboard phone-5 horizontal artboard-demo mx-auto bg-neutral">
                 <div class="mx-auto mt-8">
-                    <h1 class="text-2xl"></h1>
-                    <p class="mx-auto text-center">YAY!</p>
+                    <h1 class="text-2xl text-center">YAY!</h1>
+                    <p class="text-center"></p>
 
                     <!-- Attribtion: https://codepen.io/nathangath/pen/RgvzVY/ -->
                     <div class="w-40">
@@ -81,10 +81,9 @@
                         </svg>
                     </div>
                 
-                    <h1 class="text-2xl">STATUS REPORT</h1>
-                    <p class="mx-auto text-center">{{ statusInfo['haveIWorkedEnough'] }}</p>
-                    <p class="mx-auto text-center">{{ statusInfo['hoursAndMinutesLeftToWork'] | timefy }}</p>
-                    <p class="mx-auto text-center">{{ statusInfo['workdaysLeft'] }}</p>
+                    <h1 class="text-2xl mt-6">STATUS REPORT</h1>
+                    <p class="mx-auto text-center">overtime: {{ statusInfo['hoursAndMinutesLeftToWork'] | timefy }}</p>
+                    <!-- <p class="mx-auto text-center">{{ statusInfo['workdaysLeft'] }}</p> -->
 
                 </div>
             </div> 

@@ -8,6 +8,8 @@ ui = FlaskUI(app)
 @app.template_filter()
 def timefy(hoursAndMinutesTuple):
     hours, minutes = hoursAndMinutesTuple
+    if hours <= 0:
+        return "+" + str(hours * -1) + ":" + str(minutes) + " hrs"
     return str(hours) + ":" + str(minutes) + " hrs"
 
 @app.route('/')
@@ -17,11 +19,11 @@ def hello():
         result = ZEN_API_getWorkTimeStatus(emulate=emulate)
         return render_template('index.html', result=result)
     
-    statusInfo = getStatusInfo()
+    statusInfo = ZEN_API_getStatusInfo()
 
     if ZEN_API_haveIWorkedEnoughThisWeek():
         return render_template('yay.html', statusInfo=statusInfo)
-        
+
     result = ZEN_API_getWorkTimeStatus(emulate=emulate)
     return render_template('index.html', result=result, statusInfo=statusInfo)
 
