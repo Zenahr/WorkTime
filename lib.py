@@ -7,7 +7,7 @@ import datetime
 dotenv.load_dotenv()
 
 TOKEN = os.getenv("TEMPO_API_TOKEN")
-weeklyHours = 30 # Change this depending on your minimum weekly work time
+weeklyHours = os.getenv("REQUIRED_WEEKLY_HOURS") # Change this depending on your minimum weekly work time
 
 def getData():
     r = request('get', "https://api.tempo.io/core/3/worklogs", headers={"Authorization": "Bearer " + TOKEN})

@@ -20,9 +20,10 @@ def hello():
     statusInfo = getStatusInfo()
 
     if ZEN_API_haveIWorkedEnoughThisWeek():
-        result = ZEN_API_getWorkTimeStatus(emulate=emulate)
-        return render_template('index.html', result=result, statusInfo=statusInfo)
-    return render_template('yay.html', statusInfo=statusInfo)
+        return render_template('yay.html', statusInfo=statusInfo)
+        
+    result = ZEN_API_getWorkTimeStatus(emulate=emulate)
+    return render_template('index.html', result=result, statusInfo=statusInfo)
 
 if __name__ == '__main__':
     app.run(debug=True)
