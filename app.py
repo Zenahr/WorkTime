@@ -14,18 +14,32 @@ def timefy(hoursAndMinutesTuple):
 
 @app.route('/')
 def hello():
-    emulate = '' # 'yes' | 'no' | ''
-    if emulate == 'yes' or emulate == 'no':
+    emulate = request.args.get('emulate')
+
+    statusInfo = lib.getStatusInfo()
+
+    if emulate == 'yes':
+        result = lib.getWorkTimeStatus(emulate=emulate)
+        return render_template('yay.html', result=result, statusInfo=statusInfo)
+
+    elif emulate == 'no':
         result = lib.getWorkTimeStatus(emulate=emulate)
         return render_template('index.html', result=result)
     
-    statusInfo = lib.getStatusInfo()
 
     if lib.haveIWorkedEnoughThisWeek():
         return render_template('yay.html', statusInfo=statusInfo)
 
     result = lib.getWorkTimeStatus(emulate=emulate)
     return render_template('index.html', result=result, statusInfo=statusInfo)
+
+@app.route('/yes')
+def emulate_yes():
+    return redirect(url_for('hello', emulate='yes'))
+
+@app.route('/no')
+def emulate_no():
+    return redirect(url_for('hello', emulate='no'))
 
 if __name__ == '__main__':
     app.run(debug=True)
