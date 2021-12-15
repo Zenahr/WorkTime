@@ -7,8 +7,15 @@ ui = FlaskUI(app)
 
 @app.route('/')
 def hello():
-    result = ZEN_API_getWorkTimeStatus(emulate='')
-    return render_template('index.html', result=result)
+    emulate = '' # 'yes' | 'no' | ''
+    if emulate == 'yes' or emulate == 'no':
+        result = ZEN_API_getWorkTimeStatus(emulate=emulate)
+        return render_template('index.html', result=result)
+        
+    if ZEN_API_haveIWorkedEnoughThisWeek():
+        result = ZEN_API_getWorkTimeStatus(emulate=emulate)
+        return render_template('index.html', result=result)
+    return render_template('yay.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
